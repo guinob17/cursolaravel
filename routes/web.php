@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\Resource;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +50,26 @@ Route::get('/news', function(){
 Route::get('/novidades', function(){
     return redirect()->route('noticias');
 });
+
+//Grupos de rotas
+Route::prefix('admin')->group(function(){
+    Route::get('dashboard', function(){
+        return "dashboard";
+    });
+
+    Route::get('users', function(){
+        return "users";
+    });
+
+    Route::get('clientes', function(){
+        return "clientes";
+    });
+});
+
+//Controllers
+Route::get('/home', [ProdutoController::class, 'index'])->name('product.index');
+
+Route::get('/product/{id?}', [ProdutoController::class, 'show'])->name('product.show');
+
+//Resources
+Route::resource('resources', Resource::class);
