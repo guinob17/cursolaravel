@@ -10,11 +10,9 @@ class ProdutoController extends Controller
     public function index(){
        // return "index";
        //$produtos = Produto::all();
-       //return dd($produtos);
-       $nome = "Guilherme";
-       $idade = 25;
+       $produtos = Produto::paginate(6);
 
-       return view('site.home', compact('nome','idade'));
+       return view('site.home', compact('produtos'));
     }
 
     public function show($id = 0){

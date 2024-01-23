@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\Resource;
@@ -15,9 +16,9 @@ use App\Http\Controllers\Resource;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class,'index'])->name('site.index');
+
+Route::get('/produto/{slug}', [SiteController::class, 'details'])->name('site.details');
 
 Route::get('/empresa', function(){
     return view('empresa');
@@ -29,10 +30,6 @@ Route::any('/any', function(){
 
 Route::match(['get', 'post'], '/match', function(){
     return "Permite apenas acessos definidos";
-});
-
-Route::get('/produto/{id?}/{cat?}', function($id = '0', $cat = 'default'){
-    return "O id desse produto é: ".$id."<br>"."A categoria é: ".$cat;
 });
 
 //redirecionar
